@@ -37,7 +37,7 @@ int main()
 
 	// Waits for GPU to finish before the program exits.
 	// This ensures the printf outputs are flushed to the console.
-	cudaDeviceSynchronize()
+	cudaDeviceSynchronize();
 
 	return 0;
 
