@@ -13,6 +13,12 @@ This project follows several tutorials and reference guides for CUDA development
 
 * [Parallel Computing CUDA C](https://github.com/CisMine/Parallel-Computing-Cuda-C/tree/main): Another beginer-friendly guide to introduce CUDA basics. Resource introduces thses concepts over 14 chapters and includes seven hands on excerises to help build a working knowledge. Topics covered include: hardware architecture, data streams and expected bottlenecks, as well as tools for profiling preformenace. This should take 1-2 weeks to complete and provides a more thorough introduction to GPU programming. 
 
+### 1-Month Crash Course
+
+* [Learning Path: From Basics to Advanced CUDA Programming](https://github.com/rkinas/cuda-learning/tree/main): This provides a comprehensive intro duction to CUDA programming. It includes C/C++ tutorials, data structures, and parallel programming. It also covers useful CUDA libraries, frameowrks, and suggests coding challenges at the end (these may be listed in other parts of this repository). Some resources are free and some are paid. Please take what is useful to you.
+
+NOTE: I have not gone through all these resources yet, this information is subject to change. Suggestions for alternative resources are welcome.
+
 ---
 
 
