@@ -1,44 +1,21 @@
-# Learn CUDA Programming using Vega.
-
-This repository aims to curate exercises for learning CUDA-based GPU programming. It contains code snippets, notes, and benchmarks designed to run on a High-Performance Computing (HPC) cluster.
-
-## HPC Environment Setup
-
-Follow the steps below to configure the environment on the HPC system (Vega).
-
-### Step 1: Request a GPU Node
-
-Use `msub` to request an interactive session on the GPU node:
-
-```bash
-msub -I -l nodes=gpu01:ppn=192
-```
-
-> `gpu01` is the GPU node, and `ppn=192` requests 192 processing cores.
-
-### Step 2: Load Required NVIDIA Modules
-
-Purge current modules and load the CUDA environment:
-
-```bash
-module purge
-module use /apps/spack/share/spack/modules/linux-rocky8-zen4
-module load cuda/12.2.0-gcc-13.2.0-nwhgfor
-```
-
-This ensures access to the correct CUDA toolkit and compatible compiler toolchain.
-
----
+# Learning Resources for CUDA Programming
+This repository aims to currate resources to learn CUDA programming. Categories of resources include textbooks, seminars, free online courses and coding challenges.  Also included are "Leetcode" style websites for daily practice writing kernel functions (GPU code).
 
 ## Tutorials Covered
 
+### 1-Day Tutorial
+
 This project follows several tutorials and reference guides for CUDA development. Below is the list of tutorials currently covered:
 
-* [CUDA Tutorial by ReadTheDocs](https://cuda-tutorial.readthedocs.io/en/latest/): A comprehensive beginner-friendly guide introducing CUDA basics, memory management, and kernel execution.
+* [CUDA Tutorial by ReadTheDocs](https://cuda-tutorial.readthedocs.io/en/latest/): A beginner-friendly guide introducing CUDA basics, memory management, and kernel execution. It covers two simple but essential exercises, "Hello World" and vector addition using GPU hardware. This should take around 1 day to complete and provides a basic introduction to GPU programming.
 
-More references will be added as the learning progresses.
+### 1-Week Tutorial
+
+* [Parallel Computing CUDA C](https://github.com/CisMine/Parallel-Computing-Cuda-C/tree/main): Another beginer-friendly guide to introduce CUDA basics. Resource introduces thses concepts over 14 chapters and includes seven hands on excerises to help build a working knowledge. Topics covered include: hardware architecture, data streams and expected bottlenecks, as well as tools for profiling preformenace. This should take 1-2 weeks to complete and provides a more thorough introduction to GPU programming. 
 
 ---
+
+
 
 ## Next Steps
 
