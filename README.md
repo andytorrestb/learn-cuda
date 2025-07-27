@@ -1,5 +1,5 @@
 # Learning Resources for CUDA Programming
-This repository aims to currate resources to learn CUDA programming. Categories of resources include textbooks, seminars, free online courses and coding challenges.  Also included are "Leetcode" style websites for daily practice writing kernel functions (GPU code).
+This repository aims to currate resources to learn CUDA programming. Categories of resources include textbooks, seminars, free online courses and coding challenges. Users should be able to follow along the practice material and check this repository for solutions with thorough explinations. This project is just getting started, any feedback or suggestions or more than welcome. Also included are "Leetcode" style websites for daily practice writing kernel functions (GPU code).
 
 ## Tutorials Covered
 
