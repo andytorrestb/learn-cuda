@@ -3,9 +3,9 @@ This repository aims to currate resources to learn CUDA programming. Categories 
 
 ## Tutorials Covered
 
-### 1-Day Tutorial
-
 This project follows several tutorials and reference guides for CUDA development. Below is the list of tutorials currently covered:
+
+### 1-Day Tutorial
 
 * [CUDA Tutorial by ReadTheDocs](https://cuda-tutorial.readthedocs.io/en/latest/): A beginner-friendly guide introducing CUDA basics, memory management, and kernel execution. It covers two simple but essential exercises, "Hello World" and vector addition using GPU hardware. This should take around 1 day to complete and provides a basic introduction to GPU programming.
 
