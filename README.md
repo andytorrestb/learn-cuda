@@ -3,7 +3,7 @@ This repository aims to currate resources to learn CUDA programming. Categories 
 
 ## Tutorials Covered
 
-This project follows several tutorials and reference guides for CUDA development. Below is the list of tutorials currently covered:
+This section follows several tutorials and reference guides for CUDA development. Below is the list of tutorials currently covered:
 
 ### 1-Day Tutorial
 
@@ -21,7 +21,22 @@ NOTE: I have not gone through all these resources yet, this information is subje
 
 ---
 
+## Practice-Oriented Resources
 
+This section lists several websites that provide a platform for dail practice of GPU prgramming:
+
+* [LeetGPU](https://leetgpu.com/): GPU-focused programming challenges.
+
+* [Compiler Explorer](https://godbolt.org/): Online compilation test bed. NOTE: need to confirm/test GPU compilation.
+
+* [GPU Puzzles](https://github.com/srush/GPU-Puzzles): Additional and creative/challenging GPU practice problems. NOTE: this may be moved to another section depending on future impressions.
+
+* [100 Days of GPU](https://github.com/hkproj/100-days-of-gpu/blob/main/CUDA.md): Documents 100 days of GPU learning.
+
+* [CUDA 120 Days Challenge](https://github.com/AdepojuJeremy/CUDA-120-DAYS--CHALLENGE/tree/main): Daily coding challenge with a community for support (clout).
+
+
+---
 
 ## Next Steps
 
