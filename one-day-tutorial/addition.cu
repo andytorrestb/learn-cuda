@@ -33,7 +33,7 @@ int main()
 	// Initialize array
 	for (int i = 0; i < N; i++)
 	{
-		a[i] = 1.0f; b[i] = 2.0f; 
+		a[i] = (float)i; b[i] = (float)i; 
 		//out[i] = 0.0f;
 	}
 
