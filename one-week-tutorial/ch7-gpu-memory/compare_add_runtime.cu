@@ -82,8 +82,8 @@ int main()
         // Initialize arrays
         for (int j = 0; j < N; j++)
         {
-            a[j] = (float)j;
-            b[j] = (float)j;
+            a[j] = (float)2.0;
+            b[j] = (float)1.0;
             out[j] = 0.0f;
         }
 
