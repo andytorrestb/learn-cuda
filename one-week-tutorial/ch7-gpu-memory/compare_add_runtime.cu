@@ -3,6 +3,18 @@
 #include <chrono>
 #include <math.h>
 
+/*
+
+WARNING: This code can cause a crash if the vector size exceeds the available GPU or CPU memory.
+    Be cautious when assigning maximum vector size.
+
+    Which is controlled by adjusting the value of the constant on line 52.
+
+    TODO: Move constant value to the top of the file or make it a command line argument.
+*/
+
+
+
 
 // Function to perform vector addition on the CPU
 __host__ void vector_add_cpu(float *out, float *a, float *b, int n)
@@ -22,7 +34,6 @@ __global__ void vector_add_gpu(float *out, float *a, float *b, int n)
     {
         out[tid] = a[tid] + b[tid];
     }
-
 }
 
 int main()
