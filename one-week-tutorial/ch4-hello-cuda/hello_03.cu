@@ -1,4 +1,5 @@
 /*
+
 This script demonstrates the use of device functions in CUDA.
 It includes device functions that print messages, a kernel that calls these functions,
 and a host function that launches the kernel.
@@ -14,21 +15,11 @@ Try uncommenting the `cudaDeviceSynchronize()` calls in various places to see ho
 
 __device__ void Device1()
 {
-    printf("Hello from Device1\n");
-    // cudaDeviceSynchronize(); // will cause an error: host function cannot be called from a device function
-}
-
-__device__ void Device2()
-{
-    printf("Hello from Device2\n");
-    // cudaDeviceSynchronize(); // same error as above
-}
+    printf("Hello from Device1\n");}
 
 __global__ void kernel()
 {   
     Device1();
-    // cudaDeviceSynchronize(); // will cause an error: host function cannot be called from a global (kernel) function
-    // Device2();
 }
 
 __host__ void sub_Function_in_Host(int M, int T)
@@ -39,18 +30,23 @@ __host__ void sub_Function_in_Host(int M, int T)
 int main()
 {
 
+    auto global_start = std::chrono::high_resolution_clock::now();
+
     // Initialize a 2D array to store run time results
-    int rows = 100;
-    int cols = 100;
-    double** run_time = (double**)malloc(rows * sizeof(double*));
+    int block_sizes[] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
+    int grid_sizes[] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
+    int num_block_sizes = sizeof(block_sizes) / sizeof(block_sizes[0]);
+    int num_grid_sizes = sizeof(grid_sizes) / sizeof(grid_sizes[0]);
+
+    double** run_time = (double**)malloc(num_grid_sizes * sizeof(double*));
     if (run_time == NULL) {
         printf("Failed to allocate memory for run_time array.\n");
         return 1;
     }
 
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < num_grid_sizes; i++) {
         // Allocate memory for each row
-        run_time[i] = (double*)malloc(cols * sizeof(double));
+        run_time[i] = (double*)malloc(num_block_sizes * sizeof(double));
         if (run_time[i] == NULL) {
             printf("Failed to allocate memory for run_time[%d].\n", i);
             // Free previously allocated memory
@@ -63,13 +59,13 @@ int main()
     // Measure execution time for different configurations
     // A nested loop is used to vary the number of 
     // blocks (M) and threads (T)
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < num_grid_sizes; i++)
     {
-        for (int j = 0; j < 100; j++)
+        for (int j = 0; j < num_block_sizes; j++)
         {
             auto start = std::chrono::high_resolution_clock::now();
-        
-            sub_Function_in_Host(i, j);
+
+            sub_Function_in_Host(grid_sizes[i], block_sizes[j]);
             cudaDeviceSynchronize();
     
             auto end = std::chrono::high_resolution_clock::now();
@@ -86,10 +82,16 @@ int main()
         printf("Failed to open file for writing.\n");
     } else {
         // Write header
-        fprintf(fp, "i,j,run_time_ms\n");
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                fprintf(fp, "%d,%d,%f\n", i, j, run_time[i][j]);
+        fprintf(fp, "grid_size,block_size,run_time_ms\n");
+        for (int i = 0; i < num_grid_sizes; i++) {
+            for (int j = 0; j < num_block_sizes; j++) {
+                
+                // Write each row of data
+                fprintf
+                (
+                    fp, "%d,%d,%f\n", 
+                    grid_sizes[i], block_sizes[j], run_time[i][j]
+                );
             }
         }
         fclose(fp);
@@ -97,5 +99,10 @@ int main()
     }
 
     free(run_time);
+
+    auto global_end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> global_duration = global_end - global_start;
+    printf("Total execution time: %f ms\n", global_duration.count());
+
     return 0;
 }
