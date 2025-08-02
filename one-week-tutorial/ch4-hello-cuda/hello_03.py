@@ -8,8 +8,8 @@ import matplotlib.colors as colors
 data = pd.read_csv('runtime_data.csv')
 
 print(data.values)
-print(data['i'])
-print(data['j'])
+print(data['grid_size'])
+print(data['block_size'])
 print(data['run_time_ms'])
 
 # Plot the data
@@ -21,11 +21,14 @@ print(data['run_time_ms'])
 # X, Y = np.meshgrid(data['i'].values, data['j'].values)
 
 X, Y = np.meshgrid(
-    sorted(data['i'].unique()),
-    sorted(data['j'].unique())
+    sorted(data['grid_size'].unique()),
+    sorted(data['block_size'].unique())
 )
 
-Z = data.pivot(index='j', columns='i', values='run_time_ms').values
+# print(X)
+# input()
+
+Z = data.pivot(index='block_size', columns='grid_size', values='run_time_ms').values
 Z[Z <= 0] = 1e-6  # Replace zero or negative values
 
 plt.figure(figsize=(10, 6))
@@ -34,6 +37,16 @@ im = plt.imshow(
     interpolation='nearest', origin='lower',
     norm=colors.LogNorm(vmin=Z.min(), vmax=Z.max())
 )
+
+plt.xticks(
+    ticks=np.arange(len(sorted(data['grid_size'].unique()))),
+    labels=sorted(data['grid_size'].unique())
+)
+plt.yticks(
+    ticks=np.arange(len(sorted(data['block_size'].unique()))),
+    labels=sorted(data['block_size'].unique())
+)
+
 plt.xlabel('Thread Block Size (T)')
 plt.ylabel('Matrix Size (M)')
 # plt.zscale('log')
