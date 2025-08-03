@@ -30,7 +30,9 @@ plt.grid()
 plt.savefig('gpu_speedup.png')
 plt.clf()
 
-# Repeat plotting after dropping the first 14 rows
+# Repeat plotting after dropping the last 17 rows.
+# This is meant to highlight the vector size at
+# which the GPU starts to outperform the CPU.
 runtime = runtime.iloc[:17]
 
 print(runtime)
