@@ -1,2 +1,16 @@
+# Ignore simulation outputs
 *.csv
 *.png
+
+# Ignore compiled binaries
+one-week-tutorial/ch10-pinned-memory/pinned_memory
+one-week-tutorial/ch11-streaming/compare_streaming
+one-week-tutorial/ch4-hello-cuda/hello_01
+one-week-tutorial/ch4-hello-cuda/hello_02
+one-week-tutorial/ch4-hello-cuda/hello_03
+one-week-tutorial/ch7-gpu-memory/compare_add_runtime
+one-week-tutorial/ch7-gpu-memory/memory
+one-week-tutorial/ch9-unified-memory/
+
+# Ignore virtual environment files
+learn-cuda/
