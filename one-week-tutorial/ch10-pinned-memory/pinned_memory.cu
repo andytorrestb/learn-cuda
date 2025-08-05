@@ -89,7 +89,7 @@ int main()
     
         // cout << "SUCCESSFULLY COMPLETED PINNED DATA TRANSFER!\n";
     
-        // Allocate pinned memory on the host
+        // Allocate pageable memory on the host
         h_a = (int *)malloc(bytes);
     
     
