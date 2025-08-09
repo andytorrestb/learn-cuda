@@ -19,11 +19,14 @@ This section follows several tutorials and reference guides for CUDA development
 
 NOTE: I have not gone through all these resources yet, this information is subject to change. Suggestions for alternative resources are welcome.
 
+### 1-Month Daily Challenge
+* [daily-cuda](https://github.com/rkinas/daily-cuda): 30 days of exercises to apply knowledge of GPU kernel development.
+
 ---
 
 ## Practice-Oriented Resources
 
-This section lists several websites that provide a platform for dail practice of GPU prgramming:
+This section lists several websites that provide a platform for daily practice of GPU programming:
 
 * [LeetGPU](https://leetgpu.com/): GPU-focused programming challenges.
 
