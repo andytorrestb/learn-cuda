@@ -1,8 +1,10 @@
 # Intro
 This repository documents self learning when participating in a 30-day GPU development challenge. The challenge is dervied from mateiral hosted at [https://github.com/rkinas/daily-cuda](https://github.com/rkinas/daily-cuda). The exercises and solutions provided focus on comparing runtime analysis and model acuracy. A simple script will be developed to automate this process and each exercise will track the solution used to illustrate it's evolution. as needed. Each exercise will include a README.md file to provided further context of the instructions and solution.
 
+---
+
 ## Challenges
-This section outlines the daily exercise for 
+This section outlines the daily exercises for the GPU challenge. Please see the read me of the correct file for further information. (WIP)
 
 ### Day 1-10
 1. "Hello, GPU World" - Write and execute your first CUDA kernel.
@@ -39,3 +41,35 @@ This section outlines the daily exercise for
 28. Transformer Encoder - Implement the core computations of a transformer encoder block. 
 29. Mixed Precision Training - Use half-precision (FP16) arithmetic for tensor computations.
 30. Neural Network Interface - Optimize a simple neural network for real-time interface.
+
+---
+## Prerequisites
+- Basic knowledge of C/C++ programming
+- NVIDIA GPU with CUDA support
+- Installed CUDA Toolkit (compatible version for your GPU)
+
+---
+## How to Use
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/cuda-30-day-challenge.git
+   ```
+2. Navigate to the day-specific folder:
+   ```bash
+   cd day-01
+   ```
+3. Compile and run the code:
+   ```bash
+   nvcc main.cu -o main && ./main
+   ```
+---
+
+## Resources
+- [CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
+- [Deep Learning with CUDA](https://developer.nvidia.com/deep-learning)
+- [CUDA Samples](https://github.com/NVIDIA/cuda-samples)
+- [Accelerated Computing Documentation](https://developer.nvidia.com/documentation/)
+
+---
+## Contributing
+Contributions are welcome! If you want to improve the solutions or suggest new challenges, feel free to open an issue or a pull request.
