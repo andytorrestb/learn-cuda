@@ -37,8 +37,8 @@ if __name__ == "__main__":
     matrix_sizes = []
 
     # Loop through different sizes of matrices
-    n = 20  # Adjust this value to change maximum the size of the matrices
-    for i in range(n):
+    n = 12  # Adjust this value to change maximum the size of the matrices
+    for i in range(1, n + 1):
         print(f"Running MMM for n = {i}...")
         # Define the dimensions of the tensors
         # For example, n = 2 -- > 2^2 = 4 will create 4x4 matrices
