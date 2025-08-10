@@ -1,5 +1,5 @@
 # Intro
-WIP. This section contains resources related to developing and benchmarking algorithms for matrix multiplication on CPU and GPU solutions.
+WIP. This section contains resources related to developing and benchmarking algorithms for matrix multiplication on CPU and GPU solutions. Please see the README.md file for each individual section for further details.
 
 # Theory of Matrix Multiplication
 * [Matrix Calculus (For Machine Learning and Beyond)](https://arxiv.org/abs/2501.14787): Course notes that cover the fundamentals of matrix operations and its applications in science and engineering.
