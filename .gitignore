@@ -1,6 +1,7 @@
 # Ignore simulation outputs
 *.csv
 *.png
+*.out
 
 # Ignore compiled binaries
 one-week-tutorial/ch10-pinned-memory/pinned_memory
