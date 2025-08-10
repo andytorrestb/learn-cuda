@@ -1,8 +1,17 @@
 #include <iostream>
+#include <chrono>
+#include <functional>
+#include <string>
 
 // ==========================================================================================
 // || ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Helper Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
 // ==========================================================================================
+struct AlgorithmTest
+{
+    std::function<void(const float*, const float*, float*)> matMulFunc;
+    std::string methodName;
+};
+
 template <int rows, int cols>
 void printMatrix(const float* matrix, const std::string& name) {
     std::string dimensions = "(" + std::to_string(rows) + "x" + std::to_string(cols) + ")";
@@ -22,6 +31,31 @@ void initializeMatrix(float *M)
     for (int i = 0; i < rows * cols; ++i) {
         M[i] = static_cast<float>(0.0); // Fill with some values
     }
+}
+
+template <int rows, int cols, int inners>
+float testMatMulAlgorithm(
+    const float* A,
+    const float* B,
+    float* C,
+    std::function<void(const float*, const float*, float*)> matMulFunc,
+    const std::string& methodName
+)
+{
+
+    initializeMatrix<rows, cols>(C);
+
+    auto start = std::chrono::high_resolution_clock::now();
+    matMulFunc(A, B, C);
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<float, std::milli> duration = end - start;
+    std::cout << "Method: " << methodName << "\n";
+    std::cout << "Duration: " << duration.count() << " ms\n";
+
+    printMatrix<rows, cols>(C, "Result Matrix C");
+
+    return duration.count();
 }
 
 // ==========================================================================================
@@ -151,6 +185,7 @@ int main()
     const int rows = 2;
     const int cols = 3;
     const int inners = 4;
+    const int tile_size = 2; // For tiled implementations
 
     float A[rows * inners];
     float B[inners * cols];
@@ -166,37 +201,57 @@ int main()
     // Print matrix B
     printMatrix<inners, cols>(B, "Matrix B");
 
-    // Perform naive matrix multiplication and print results.
-    initializeMatrix<rows, cols>(C);
-    matMulNaive<rows, cols, inners>(A, B, C);
-    std::cout << "Method: Naive Matrix Multiplication\n";
-    printMatrix<rows, cols>(C, "Result Matrix C");
+    std::vector<AlgorithmTest> algorithms =
+    {
+        {
+            [](const float* A, const float* B, float* C) {
+                matMulNaive<rows, cols, inners>(A, B, C);
+            },
+            "Naive Matrix Multiplication"
+        },
+        {
+            [](const float* A, const float* B, float* C) {
+                matmulNaiveRegister<rows, cols, inners>(A, B, C);
+            },
+            "Naive Matrix Multiplication with Register Optimization"
+        },
+        {
+            [](const float* A, const float* B, float* C) {
+                matmulLoopReordered<rows, cols, inners>(A, B, C);
+            },
+            "Loop Reordered Matrix Multiplication"
+        },
+        {
+            [](const float* A, const float* B, float* C) {
+                matMulTiling<rows, cols, inners, tile_size>(A, B, C);
+            },
+            "Tiled Matrix Multiplication"
+        },
+        {
+            [](const float* A, const float* B, float* C) {
+                matMulRowColParrallelInnerTiling<rows, cols, inners, tile_size>(A, B, C);
+            },
+            "Parallel Matrix Multiplication with Inner Tiling"
+        }
+    };
 
-    // Perform naive matrix multiplication with register optimization and print results.
-    initializeMatrix<rows, cols>(C);
-    matmulNaiveRegister<rows, cols, inners>(A, B, C);
-    std::cout << "Method: Naive Matrix Multiplication with Register Optimization\n";
-    printMatrix<rows, cols>(C, "Result Matrix C");
+    std::vector<float> runtimes;
 
-    // Perform loop reordered matrix multiplication and print results.
-    initializeMatrix<rows, cols>(C);
-    matmulLoopReordered<rows, cols, inners>(A, B, C);
-    std::cout << "Method: Loop Reordered Matrix Multiplication\n";
-    printMatrix<rows, cols>(C, "Result Matrix C");
+    // test each algorithm
+    for (const auto& test : algorithms)
+    {
+        float runtime = testMatMulAlgorithm<rows, cols, inners>(
+            A, B, C, test.matMulFunc, test.methodName
+        );
+        runtimes.push_back(runtime);
+    }
 
-
-    // Perform tiled matrix multiplication and print results.
-    const int tile_size = 2;
-    initializeMatrix<rows, cols>(C);
-    matMulTiling<rows, cols, inners, tile_size>(A, B, C);
-    std::cout << "Method: Tiled Matrix Multiplication with tile size " << tile_size << "\n";
-    printMatrix<rows, cols>(C, "Result Matrix C");
-
-    // Perform parallel matrix multiplication and print results.
-    initializeMatrix<rows, cols>(C);
-    matMulRowColParrallelInnerTiling<rows, cols, inners, tile_size>(A, B, C);
-    std::cout << "Method: Parallel Matrix Multiplication\n";
-    printMatrix<rows, cols>(C, "Result Matrix C");
+    // Optional: Print performance summary
+    std::cout << "\n=== Performance Summary ===\n";
+    for (size_t i = 0; i < algorithms.size(); ++i)
+    {
+        std::cout << algorithms[i].methodName << ": " << runtimes[i] << " ms\n";
+    }
 
     return 0;
 }
