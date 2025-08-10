@@ -14,10 +14,10 @@ This section is a work in progress. Resources will be added soon.
 This section is a work in progress. Resources will be added soon. 
 
 - Introduction
+- CUTLASS
 - Triton
 - Thunder Kittens
 - Tile Lang
 
 ## GPU Architecture
-This section is a work in progress. Resources will be added soon. 
-
+This section is a work in progress. Resources will be added soon.
