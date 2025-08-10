@@ -1,5 +1,21 @@
 #include <iostream>
 
+// ==========================================================================================
+// || ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Helper Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ||
+// ==========================================================================================
+template <int rows, int cols>
+void printMatrix(const float* matrix, const std::string& name) {
+    std::string dimensions = "(" + std::to_string(rows) + "x" + std::to_string(cols) + ")";
+    std::cout << name << " " << dimensions << ":\n";
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << matrix[i * cols + j] << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n\n";
+}
+
 template <int rows, int cols>
 void initializeMatrix(float *M)
 {
@@ -8,8 +24,11 @@ void initializeMatrix(float *M)
     }
 }
 
+// ==========================================================================================
+// || ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Matrix Multiplication Implementations ~~~~~~~~~||
+// ==========================================================================================
 template <int rows, int cols, int inners>
-void natmulNaive(const float *A, const float *B, float *C)
+void matMulNaive(const float *A, const float *B, float *C)
 {
 /*
     Naive implementation of matrix multiplication C = A * B
@@ -142,100 +161,42 @@ int main()
     for (int i = 0; i < inners * cols; ++i) B[i] = i + 1;
 
     // Print matrix A
-    std::cout << "Matrix A (" << rows << "x" << inners << "):\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < inners; ++j) {
-            std::cout << A[i * inners + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<rows, inners>(A, "Matrix A");
 
     // Print matrix B
-    std::cout << "Matrix B (" << inners << "x" << cols << "):\n";
-    for (int i = 0; i < inners; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << B[i * cols + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<inners, cols>(B, "Matrix B");
 
-    // Perform naive matrix multiplication
+    // Perform naive matrix multiplication and print results.
     initializeMatrix<rows, cols>(C);
-    natmulNaive<rows, cols, inners>(A, B, C);
-
-    // Print result matrix C
-    std::cout << "Result Matrix C (" << rows << "x" << cols << "):\n";
+    matMulNaive<rows, cols, inners>(A, B, C);
     std::cout << "Method: Naive Matrix Multiplication\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << C[i * cols + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<rows, cols>(C, "Result Matrix C");
 
-    // Perform naive matrix multiplication with register optimization
+    // Perform naive matrix multiplication with register optimization and print results.
     initializeMatrix<rows, cols>(C);
     matmulNaiveRegister<rows, cols, inners>(A, B, C);
-
-    // Print result matrix C
-    std::cout << "Result Matrix C (" << rows << "x" << cols << "):\n";
     std::cout << "Method: Naive Matrix Multiplication with Register Optimization\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << C[i * cols + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<rows, cols>(C, "Result Matrix C");
 
-    // Perform loop reordered matrix multiplication
+    // Perform loop reordered matrix multiplication and print results.
     initializeMatrix<rows, cols>(C);
     matmulLoopReordered<rows, cols, inners>(A, B, C);
-
-    // Print result matrix C
-    std::cout << "Result Matrix C (" << rows << "x" << cols << "):\n";
     std::cout << "Method: Loop Reordered Matrix Multiplication\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << C[i * cols + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<rows, cols>(C, "Result Matrix C");
 
-    // Perform tiled matrix multiplication
+
+    // Perform tiled matrix multiplication and print results.
     const int tile_size = 2;
     initializeMatrix<rows, cols>(C);
     matMulTiling<rows, cols, inners, tile_size>(A, B, C);
-
-    // Print result matrix C
-    std::cout << "Result Matrix C (" << rows << "x" << cols << "):\n";
     std::cout << "Method: Tiled Matrix Multiplication with tile size " << tile_size << "\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << C[i * cols + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<rows, cols>(C, "Result Matrix C");
 
-    // Perform parallel matrix multiplication
+    // Perform parallel matrix multiplication and print results.
     initializeMatrix<rows, cols>(C);
     matMulRowColParrallelInnerTiling<rows, cols, inners, tile_size>(A, B, C);
-
-    // Print result matrix C
-    std::cout << "Result Matrix C (" << rows << "x" << cols << "):\n";
     std::cout << "Method: Parallel Matrix Multiplication\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << C[i * cols + j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
+    printMatrix<rows, cols>(C, "Result Matrix C");
 
     return 0;
 }
